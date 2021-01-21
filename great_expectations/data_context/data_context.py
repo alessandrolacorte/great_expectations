@@ -3222,14 +3222,15 @@ class DataContext(BaseDataContext):
         return new_store
 
     def add_datasource(
-        self, name, **kwargs
+        self, name, save_project_config=True, **kwargs
     ) -> Optional[Union[LegacyDatasource, BaseDatasource]]:
         logger.debug("Starting DataContext.add_datasource for datasource %s" % name)
 
         new_datasource: Optional[
             Union[LegacyDatasource, BaseDatasource]
         ] = super().add_datasource(name=name, **kwargs)
-        self._save_project_config()
+        if save_project_config:
+            self._save_project_config()
 
         return new_datasource
 
